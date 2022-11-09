@@ -14,6 +14,9 @@ const getProductsFromFile = cb => {
 
 module.exports = class Product {
   constructor(title, imageUrl, description, price) {
+    // can handle storing id in constructor or in the save.
+    // Max uses handling id in the save method
+    // this.id = Math.floor(Math.random()*20000000000); 
     this.title = title;
     this.imageUrl = imageUrl;
     this.description = description;
@@ -21,6 +24,7 @@ module.exports = class Product {
   }
 
   save() {
+    this.id = Math.random().toString();
     getProductsFromFile(products => {
       products.push(this);
       fs.writeFile(p, JSON.stringify(products), (err) => {
