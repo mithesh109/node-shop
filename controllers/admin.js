@@ -10,12 +10,13 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
   const { title, imageUrl, description, price } = req.body;
-  Product.create({
+  req.user
+    .createProduct({
     title: title,
     price: price,
     imageUrl: imageUrl,
     description: description
-  })
+    })
     .then(result => {
       console.log('Product created');
       res.redirect('/admin/products');
@@ -78,7 +79,8 @@ exports.postDeleteProduct = (req, res, next) => {
 };
 
 exports.getAdminProducts = (req, res, next) => {
-  Product.findAll()
+  req.user
+    .getProducts()
     .then(products => {
       res.render('admin/products', {
         prods: products,
