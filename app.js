@@ -50,11 +50,21 @@ sequelize
   })
   .then(user => {
     if (!user) {
-      User.create({ name: 'Mithesh', email: 'test@test.com' })
+      return User.create({ name: 'Mithesh', email: 'test@test.com' });
     }
     return user;
   })
   .then(user => {
+    return user.getCart()
+    .then(cart => {
+      console.log('LETs CHECK CART BEFORE CREATING: ' + cart);
+      if (!cart) {
+        return user.createCart();
+      }
+      return cart;
+    })
+  })
+  .then(cart => {
     app.listen(3000);
   })
   .catch(err => {
