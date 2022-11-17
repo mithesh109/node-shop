@@ -6,10 +6,8 @@ class User {
   constructor(username, email, cart, id) {
     this.name = username;
     this.email = email;
-    // this.cart = cart ? cart : {};
     this._id = id;
     this.cart = cart ? cart : (cart = { items: [] });
-    console.log(this);
   }
 
   save() {
@@ -18,8 +16,6 @@ class User {
   }
 
   addToCart(product) {
-    console.log("Entered");
-    console.log(this.cart);
     const cartProductIndex = this.cart.items.findIndex((cp) => {
       return cp.productId.toString() === product._id.toString();
     });
